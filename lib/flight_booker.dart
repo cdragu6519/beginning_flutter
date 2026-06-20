@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(
@@ -43,6 +44,7 @@ class _ContentState extends State<Content> {
           onSelected: (value) {
             setState(() {
               legs = value!;
+              if (legs == 1) returnDate = null;
             });
           },
         ),
@@ -62,7 +64,11 @@ class _ContentState extends State<Content> {
           },
           child: const Text('Select Depart Date'),
         ),
-        Text(departureDate?.toIso8601String() ?? 'No date selected'),
+        Text(
+          departureDate != null
+              ? DateFormat('dd/MM/yyyy').format(departureDate!)
+              : 'No date selected',
+        ),
 
         if (legs > 1)
           ElevatedButton(
@@ -79,7 +85,11 @@ class _ContentState extends State<Content> {
             },
             child: const Text('Select Return Date'),
           ),
-        Text(returnDate?.toIso8601String() ?? 'No date selected'),
+        Text(
+          returnDate != null
+              ? DateFormat('dd/MM/yyyy').format(returnDate!)
+              : 'No date selected',
+        ),
         TextButton(
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.all<Color>(
